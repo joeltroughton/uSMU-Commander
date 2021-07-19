@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace>uSMU_Commander</RootNamespace>
+    <UseWPF>true</UseWPF>
+    <ApplicationIcon>cmdico.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FontAwesome5" Version="2.1.4" />
+    <PackageReference Include="SerialPortStream" Version="2.3.1" />
+  </ItemGroup>
+
+</Project>

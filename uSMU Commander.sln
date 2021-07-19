@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31424.327
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uSMU Commander", "uSMU Commander\uSMU Commander.csproj", "{28C463C6-3995-4E58-AAA9-7986766B1984}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{28C463C6-3995-4E58-AAA9-7986766B1984}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28C463C6-3995-4E58-AAA9-7986766B1984}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28C463C6-3995-4E58-AAA9-7986766B1984}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28C463C6-3995-4E58-AAA9-7986766B1984}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4553FC66-963D-49A6-8CFF-E5C3A3E68E25}
+	EndGlobalSection
+EndGlobal

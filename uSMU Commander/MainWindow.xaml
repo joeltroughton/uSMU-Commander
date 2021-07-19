@@ -1,0 +1,132 @@
+﻿<Window x:Class="uSMU_Commander.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:uSMU_Commander"
+        xmlns:fa5="http://schemas.fontawesome.com/icons/"
+        mc:Ignorable="d"
+        Title="μSMU Commander" Height="450" Width="300">
+
+    <Window.Resources>
+        <Style TargetType="ToolTip">
+            <Style.Resources>
+                <Style TargetType="ContentPresenter">
+                    <Style.Resources>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="TextWrapping" Value="Wrap" />
+                        </Style>
+                    </Style.Resources>
+                </Style>
+            </Style.Resources>
+            <Setter Property="MaxWidth" Value="200" />
+        </Style>
+
+    </Window.Resources>
+
+    <Grid Margin="10,10,10,10">
+
+        <StackPanel Orientation="Vertical">
+            <TextBlock Text="Port - Disconnected" FontWeight="Bold" x:Name="portTextBlock" Foreground="OrangeRed"/>
+            <Grid Margin="0,0,0,5" Height="30">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <ComboBox x:Name="portBox" Grid.Column="0" SelectedIndex="0" ToolTip="Select μSMU port"/>
+
+                <Button Grid.Column="1" x:Name="portRefreshButton" Click="portRefreshButton_Click" BorderThickness="0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" ToolTip="Refresh list of available ports">
+                    <Button.Content>
+
+                        <fa5:ImageAwesome Icon="Solid_Sync" Foreground="CornflowerBlue"/>
+                    </Button.Content>
+                </Button>
+
+                <Button Grid.Column="2" x:Name="portConnectButton" Click="portConnectButton_Click" BorderThickness="0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" ToolTip="Connect to port">
+                    <Button.Content>
+                        <fa5:ImageAwesome Icon="Solid_Link" Foreground="CornflowerBlue"/>
+                    </Button.Content>
+                </Button>
+
+                <Button Grid.Column="3" x:Name="portDisconnectButton" Click="portDisconnectButton_Click" BorderThickness="0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" ToolTip="Disconnect port">
+                    <Button.Content>
+                        <fa5:ImageAwesome Icon="Solid_Unlink" Foreground="CornflowerBlue"/>
+                    </Button.Content>
+                </Button>
+            </Grid>
+
+            <Grid Margin="0,0,0,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+
+                <Button Grid.Column="0" Grid.Row="0" Content="CH1:ENA" x:Name="enableButton" Click="enableButton_Click" ToolTip="Enable μSMU output"/>
+                <Button Grid.Column="1" Grid.Row="0" Content="CH1:DIS" x:Name="disableButton" Click="disableButton_Click" ToolTip="Put μSMU output into high impedance mode"/>
+                <Button Grid.Column="0" Grid.Row="1" Content="*IDN?" x:Name="idnButton" Click="idnButton_Click" ToolTip="Return the μSMU version and identification information"/>
+                <Button Grid.Column="1" Grid.Row="1" Content="*RST" x:Name="rstButton" Click="rstButton_Click" ToolTip="Reboot the μSMU. Port must be reconnected after a reboot"/>
+
+            </Grid>
+
+            <Grid Margin="0,0,0,10" Height="120">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Button Grid.Column="0" Grid.Row="0" Content="CH1:CUR" x:Name="curSetButton" Click="curSetButton_Click" ToolTip="Set the current limit for the μSMU in milliamps.&#x0a;&#x0a;Click to send command"/>
+                <TextBox Grid.Column="1" Grid.Row="0" x:Name="curSetBox" Text="40" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ToolTip="Enter the current limit for the μSMU in milliamps.&#x0a;&#x0a;50 mA is the maximum rated current"/>
+
+                <Button Grid.Column="0" Grid.Row="1" Content="CH1:OSR" x:Name="osrSetButton" Click="osrSetButton_Click" ToolTip="Set the oversample rate (OSR) for the μSMU. &#x0a;&#x0a;OSR is the number of samples to average for each measurement. A higher OSR measurement will take longer to perform, but will be more accurate wheras a lower OSR measurement will complete quicker at the expense of accuracy.&#x0a;&#x0a;Click to send command"/>
+                <TextBox Grid.Column="1" Grid.Row="1" x:Name="osrSetBox" Text="10" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ToolTip="Enter the desired oversample rate between 1 and 50"/>
+
+                <Button Grid.Column="0" Grid.Row="2" Content="CH1:VOL" x:Name="volSetButton" Click="volSetButton_Click" ToolTip="Set the voltage of the μSMU in volts. Note that this only sets the output to the desired voltage, and doesn't return a measurement.&#x0a;&#x0a;Click to send command."/>
+                <TextBox Grid.Column="1" Grid.Row="2" x:Name="volSetBox" Text="1.234" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ToolTip="Enter the desired output voltage in volts between -6 V and +6 V"/>
+
+                <Button Grid.Column="0" Grid.Row="3" Content="CH1:MEA:VOL" x:Name="volMeasureButton" Click="volMeasureButton_Click" ToolTip="Set the voltage of the μSMU to the desired value and return a voltage and current measurement.&#x0a;&#x0a;Click to send command."/>
+                <TextBox Grid.Column="1" Grid.Row="3" x:Name="volMeasBox" Text="1.234" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ToolTip="Enter the desired output voltage in volts between -6 V and +6 V"/>
+            </Grid>
+
+            <TextBlock Text="String sent to μSMU"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                
+                <TextBox x:Name="sentCommandText" Grid.Column="0"/>
+                <Button x:Name="sendCommandButton" Content="Send" Grid.Column="1" Click="sendCommandButton_Click"/>
+
+            </Grid>
+
+            <TextBlock Text="String received from μSMU"/>
+            <TextBox x:Name="smuRecievedText" IsReadOnly="True"/>
+
+            <TextBlock Text="Interperated data from μSMU"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBox Text="Voltage" Grid.Column="0" x:Name="voltageTextBox" IsReadOnly="True"/>
+                <TextBox Text="Current" Grid.Column="1" x:Name="currentTextBox" IsReadOnly="True"/>
+            </Grid>
+
+        </StackPanel>
+        <TextBlock Text="μSMU Commander v1.0" HorizontalAlignment="Right" VerticalAlignment="Bottom" PreviewMouseRightButtonUp="TextBlock_PreviewMouseRightButtonUp"/>
+
+    </Grid>
+</Window>
